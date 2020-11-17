@@ -1,0 +1,82 @@
+verbose: 1
+random_seed:
+
+# root to save checkpoints and logs
+output_root: ./output/cifar10
+
+# path to the checkpoint to continue training from this checkpoint (default: None)
+finetune_from:
+
+# an image resolution
+image_res: 32
+# a number of image channels
+image_dim: 3
+# a spatial resolution of the latent space
+latent_res: 1
+# a depth of the latent space
+latent_dim: 256
+
+# a number of training iterations
+iters: 100000
+# log the training losses every "log_iter" iteration
+log_iter: 10
+# make a checkpoint every "checkpoint_iter" iteration
+checkpoint_iter: 10000
+# sample examples of the images + reconstructed images every "image_sample_iter" iteration
+image_sample_iter: 5000
+# update gradient information and recompute weights every "update_grad_norm_iter" iteration
+update_grad_norm_iter: 100
+
+# we train n_dis steps of discriminators, and then one step of encoder+generator
+n_dis: 2
+batch_size: 32
+
+# choose type [cifar10, mnist, fashion_mnist, coil100, celeba, lsun]
+dataset_type: cifar10
+dataset_root: ./data/cifar10
+num_workers: 16
+
+# a list of channels in convolutions
+gen: [256, 256, 128, 64]
+enc: [64, 128, 256, 256]
+image_dis: [32, 64, 128, 128]
+latent_dis: [1024, 1024]
+
+# --------------- loss params -----------------
+
+wasserstein_loss_kwargs:
+  # weights before gradient penalty and penalty of norm (see the paper for details)
+  gradient_penalty: 10
+  norm_penalty: 0.001
+
+# params of perceptual loss
+perceptual_loss_kwargs:
+  use_L1_norm: True
+  use_feature_normalization: True
+  use_relative_error: True
+  img_weight: 0
+  feature_weights:
+    r42: 1
+
+# use_grad_norm_policy=True is enabling Gradient-normalizing Weight Policy
+# if you put use_grad_norm_policy=False then set enc_rec_loss_weight and gen_rec_loss_weight instead
+use_grad_norm_policy: True
+enc_rec_loss_weight:
+gen_rec_loss_weight:
+
+# --------------- optimizer params -----------------
+
+# adam kwargs for all optimizers
+adam_kwargs:
+  enc_gen:
+    lr: 0.0001
+    betas: [0.5, 0.99]
+    weight_decay: 0.00000001
+  latent_dis:
+    lr: 0.0005
+    betas: [0.5, 0.99]
+    weight_decay: 0.00000001
+  image_dis:
+    lr: 0.0005
+    betas: [0.5, 0.99]
+    weight_decay: 0.00000001

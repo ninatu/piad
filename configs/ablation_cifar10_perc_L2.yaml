@@ -1,0 +1,62 @@
+verbose: 1
+random_seed:
+output_root: ./output/ablation_cifar10_perc_L2
+finetune_from:
+
+image_res: 32
+image_dim: 3
+latent_res: 1
+latent_dim: 256
+
+iters: 100000
+log_iter: 10
+checkpoint_iter: 10000
+image_sample_iter: 5000
+update_grad_norm_iter: 100
+
+n_dis: 2
+batch_size: 32
+
+dataset_type: cifar10
+dataset_root: ./data/cifar10
+num_workers: 16
+
+gen: [256, 256, 128, 64]
+enc: [64, 128, 256, 256]
+image_dis: [32, 64, 128, 128]
+latent_dis: [1024, 1024]
+
+
+# --------------- loss params -----------------
+
+wasserstein_loss_kwargs:
+  gradient_penalty: 10
+  norm_penalty: 0.001
+
+perceptual_loss_kwargs:
+  use_L1_norm: False
+  use_feature_normalization: False
+  use_relative_error: False
+  img_weight: 0
+  feature_weights:
+    r42: 1
+
+use_grad_norm_policy: True
+enc_rec_loss_weight:
+gen_rec_loss_weight:
+
+# --------------- optimizer params -----------------
+
+adam_kwargs:
+  enc_gen:
+    lr: 0.0001
+    betas: [0.5, 0.99]
+    weight_decay: 0.00000001
+  latent_dis:
+    lr: 0.0005
+    betas: [0.5, 0.99]
+    weight_decay: 0.00000001
+  image_dis:
+    lr: 0.0005
+    betas: [0.5, 0.99]
+    weight_decay: 0.00000001

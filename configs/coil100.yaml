@@ -1,0 +1,61 @@
+verbose: 1
+random_seed:
+output_root: ./output/coil100
+finetune_from:
+
+image_res: 32
+image_dim: 3
+latent_res: 1
+latent_dim: 32
+
+iters: 20000
+log_iter: 10
+checkpoint_iter: 10000
+image_sample_iter: 5000
+update_grad_norm_iter: 100
+
+n_dis: 2
+batch_size: 32
+
+dataset_type: coil100
+dataset_root: ./data/coil-100
+num_workers: 16
+
+gen: [32, 32, 32, 32]
+enc: [32, 32, 32, 32]
+image_dis: [32, 32, 32, 32]
+latent_dis: [128, 128]
+
+# --------------- loss params -----------------
+
+wasserstein_loss_kwargs:
+  gradient_penalty: 10
+  norm_penalty: 0.001
+
+perceptual_loss_kwargs:
+  use_L1_norm: True
+  use_feature_normalization: True
+  use_relative_error: True
+  img_weight: 0
+  feature_weights:
+    r42: 1
+
+use_grad_norm_policy: True
+enc_rec_loss_weight:
+gen_rec_loss_weight:
+
+# --------------- optimizer params -----------------
+
+adam_kwargs:
+  enc_gen:
+    lr: 0.0001
+    betas: [0.5, 0.99]
+    weight_decay: 0.00000001
+  latent_dis:
+    lr: 0.0005
+    betas: [0.5, 0.99]
+    weight_decay: 0.00000001
+  image_dis:
+    lr: 0.0005
+    betas: [0.5, 0.99]
+    weight_decay: 0.00000001

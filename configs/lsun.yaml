@@ -1,0 +1,61 @@
+verbose: 1
+random_seed:
+output_root: ./output/lsun
+finetune_from:
+
+image_res: 64
+image_dim: 3
+latent_res: 4
+latent_dim: 32
+
+iters: 300000
+log_iter: 10
+checkpoint_iter: 30000
+image_sample_iter: 5000
+update_grad_norm_iter: 100
+
+n_dis: 3
+batch_size: 32
+
+dataset_type: lsun
+dataset_root: ./data/lsun
+num_workers: 16
+
+gen: [64, 64, 64, 64, 64]
+enc: [64, 64, 64, 64, 64]
+image_dis: [64, 64, 64, 64, 64]
+latent_dis: [2048, 2048]
+
+# --------------- loss params -----------------
+
+wasserstein_loss_kwargs:
+  gradient_penalty: 10
+  norm_penalty: 0.001
+
+perceptual_loss_kwargs:
+  use_L1_norm: True
+  use_feature_normalization: True
+  use_relative_error: True
+  img_weight: 0
+  feature_weights:
+    r42: 1
+
+use_grad_norm_policy: True
+enc_rec_loss_weight:
+gen_rec_loss_weight:
+
+# --------------- optimizer params -----------------
+
+adam_kwargs:
+  enc_gen:
+    lr: 0.0001
+    betas: [0.5, 0.99]
+    weight_decay: 0.00000001
+  latent_dis:
+    lr: 0.0005
+    betas: [0.5, 0.99]
+    weight_decay: 0.00000001
+  image_dis:
+    lr: 0.0005
+    betas: [0.5, 0.99]
+    weight_decay: 0.00000001
