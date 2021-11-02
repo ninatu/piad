@@ -6,8 +6,9 @@
 Nina Tuluptceva, Bart Bakker, Irina Fedulova, Anton Konushin<br>
 2019<br>
 
-Paper: [https://arxiv.org/abs/1909.05904](https://arxiv.org/abs/1909.05904) <br>
 The final authenticated publication is available online at [https://link.springer.com/chapter/10.1007/978-3-030-41404-7_1](https://link.springer.com/chapter/10.1007/978-3-030-41404-7_12).
+
+Arxiv: [https://arxiv.org/abs/1909.05904](https://arxiv.org/abs/1909.05904) <br>
 
 Abstract: <br>
 We present a novel method for image anomaly detection, where algorithms that use samples drawn from some distribution of “normal” data, 
@@ -146,3 +147,19 @@ After these operations, you should obtain the following structure:
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [license-shield]: https://img.shields.io/badge/License-Apache%202.0-blue.svg
 [license-url]: https://github.com/ninatu/mood_challenge/blob/master/LICENSE
+
+## Cite
+
+If you use this code in your research, please cite
+
+```bibtex
+@InProceedings{10.1007/978-3-030-41404-7_12,
+author="Tuluptceva, Nina and Bakker, Bart and Fedulova, Irina and Konushin, Anton",
+title="Perceptual Image Anomaly Detection",
+booktitle="Pattern Recognition",
+year="2020",
+publisher="Springer International Publishing",
+address="Cham",
+pages="164--178",
+}
+```
